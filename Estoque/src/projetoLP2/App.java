@@ -18,21 +18,21 @@ public class App {
 		e.conectar();
 
      try {
-			Usuario retorno = e.encontraUsuario("1", "teste123");
+			Usuario retorno = e.encontraUsuario(1, "teste123");
 			System.out.println("Retorno: " + retorno);
 			System.out.println("Nome: " + retorno.getNome());
 
-	/*      String nome = "Toner Xerox 6000";
-			float quantidade = 10;
-			if(e.insertProduto(nome, quantidade)==true){
+/*         String nome = "Papel Chamex";
+			float quantidade = 30;
+		if(e.insertProduto(nome, quantidade)==true){
 				System.out.println("Inserido com sucesso");
 				
 			}
 			else{
 				
 				System.out.println("Não inserido com sucesso");
-			} */
-
+			} 
+*/
 
 		} catch (Exception ex) {
 			System.out.println("Informação não encontrada.");

@@ -26,9 +26,9 @@ public class EstoqueDAO {
 		}
 	}
 	
-	public Usuario encontraUsuario(String cod, String senha) {
+	public Usuario encontraUsuario(int cod, String senha) {
 
-		if (cod == null) {
+		if (cod == 0) {
 			throw new IllegalArgumentException(
 					"O número não pode ser null.");
 		}
@@ -43,7 +43,7 @@ public class EstoqueDAO {
 
 		try {		
 			stmt = con.prepareStatement(selectUsuario);
-			stmt.setInt(1, Integer.parseInt(cod));
+			stmt.setInt(1, cod);
 			stmt.setString(2, senha);
 			rs = stmt.executeQuery();
 
