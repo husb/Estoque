@@ -2,6 +2,8 @@ package projetoLP2;
 
 import java.sql.SQLException;
 
+import swingLP2.swingUsuario;
+
 /**
  * 
  * @author husbeh@gmail.com
@@ -40,6 +42,15 @@ public class App {
 		} 
 		
 		e.Usuario();
+		
+		        swingUsuario ex2 = new swingUsuario(); 
+		        ex2.criaJanela();  
+		     
+
+		     
+			   
+		        
+		     
 		
 	}
 
