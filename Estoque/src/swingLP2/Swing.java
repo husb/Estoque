@@ -1,4 +1,7 @@
-package swingLP2;
+/* esse arquivo foi modificado e criado 2, swingUsuario e swingProduto, este aqui não existe mais e eu não sei excluir ele daqui */
+
+
+/* package swingLP2;
 
 import javax.swing.*;  
 
@@ -11,9 +14,7 @@ import java.awt.event.ActionListener;
 
 	public class Swing extends JFrame implements ActionListener  
 	{  
-	    /**
-		 * 
-		 */
+	    
 		private static final long serialVersionUID = -6784375067619890013L;
 		JButton botao;  
 	    JPanel panel;  
@@ -37,7 +38,7 @@ import java.awt.event.ActionListener;
 	          
 	        panel = new JPanel();  
 	        label = new JLabel();  
-	        label2 = new JLabel("Digite um c�digo de um cliente a procurar.");  
+	        label2 = new JLabel("Digite um c�digo de um cliente a procurar.");  
 	        label3 = new JLabel("Digite uma senha.");  
 	                  
 	        botao = new JButton("OK");  
@@ -87,4 +88,4 @@ import java.awt.event.ActionListener;
 		   
 	        
 	    }  
-	} 
+	} */
