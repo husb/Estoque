@@ -20,7 +20,7 @@ public class swingProduto extends JFrame implements ActionListener
 	JButton botao, botao2;
     JPanel panel;  
     JTextField texto, texto2; 
-    JLabel label1, label2, label3;
+    JLabel label1, label2, label3, aux;
 	
     public swingProduto()  
     {  
@@ -29,14 +29,15 @@ public class swingProduto extends JFrame implements ActionListener
 	
 	public void criaJanela(){
 		
-		 label1 = new JLabel("Digite o nome de um produto que deseja inserir");
-		 label2 = new JLabel("Insira uma quantidade");
+		 label1 = new JLabel("Digite o nome de um produto que deseja inserir:");
+		 label2 = new JLabel("Insira uma quantidade:");
 		 texto = new JTextField(); 
 		 texto2 = new JTextField();
 	     panel = new JPanel();  
 	     botao = new JButton("OK");
-	     label3 = new JLabel("teste");
+	     label3 = new JLabel();
 	     botao2 = new JButton("Voltar");
+	     aux = new JLabel();
 
 	     
 	     
@@ -46,15 +47,17 @@ public class swingProduto extends JFrame implements ActionListener
 	     panel.add(texto2);  
 	     panel.add(botao);
 	     panel.add(label3);
+	     panel.add(aux);
 	     botao.addActionListener(this);  
 	     panel.add(botao2);
+	     botao2.addActionListener(this);  
 	     
 	     getContentPane().add(panel, BorderLayout.CENTER);  
 	         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
 	          
 	        pack();  
 	        setVisible(true);         
-	        setSize(400,400);    
+	        setSize(250,400);    
 	        panel.setLayout(new GridLayout(12, 1)); 
 	        
 	        
@@ -75,20 +78,20 @@ public class swingProduto extends JFrame implements ActionListener
 	    	String nome = texto.getText();
 		
 		   if(dao.insertProduto(nome, quantidade)==true){
-				label3.setText("Inserido com sucesso");
+				label3.setText("Inserido com sucesso.");
 				
 			}
 			else{
 				
-				label3.setText("Não inserido com sucesso");
+				label3.setText("Não inserido com sucesso.");
 			} 
 	    	}catch(Exception e1){
 	    		
-	    		System.out.println("//todo");
+	    		label3.setText("Insira algo para cadastrar.");
 	    	
 	    	}
 		}
-		else{
+		if(src == botao2){
 			this.hide();
 			swingUsuario ex2 = new swingUsuario(); 
 		    ex2.criaJanela(); 

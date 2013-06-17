@@ -19,39 +19,37 @@ import java.awt.event.ActionListener;
 		JButton botao2; 
 	    JPanel panel;  
 	    static JTextField texto;  
-	    static JTextField texto2; 
+	    JLabel aux;
 	    JLabel label;
 	    JLabel label2;
-	    JLabel label3;
 		String b;
 	      
 	    public swingUsuario()  
 	    {  
-	        super("Estoque");  
+	        super("Estoque/Usuarios");  
 	    }  
 	      
 	    public void criaJanela()  
 	    {         
 	    	
 	        texto = new JTextField();  
-	        texto2 = new JTextField();  
+	        aux = new JLabel();  
 	          
 	        panel = new JPanel();  
 	        label = new JLabel();  
-	        label2 = new JLabel("Digite um código de um cliente a procurar.");  
-	        label3 = new JLabel("Digite uma senha.");  
+	        label2 = new JLabel("Digite um código de um cliente a procurar:");  
 	                  
 	        botao = new JButton("OK");  
 	        botao.addActionListener(this);  
-	        botao2 = new JButton("GO");  
+	        botao2 = new JButton("Ir para produtos");  
 	        botao2.addActionListener(this);  
 	         
 	        panel.add(label2);
 	        panel.add(texto);  
-	        panel.add(label3);
-	        panel.add(texto2); 
-	        panel.add(botao);  
+	        panel.add(aux); 	  
 	        panel.add(label); 
+	        panel.add(botao);  
+	        panel.add(aux); 
 	        panel.add(botao2); 
 	      
 	          
@@ -60,7 +58,7 @@ import java.awt.event.ActionListener;
 	          
 	        pack();  
 	        setVisible(true);         
-	        setSize(400,400);    
+	        setSize(250,400);    
 	        panel.setLayout(new GridLayout(12, 1)); 
 	    }  
 	      
@@ -75,17 +73,16 @@ import java.awt.event.ActionListener;
 	    	dao.conectar();
 	    	 if (src == botao) {
 	    	int cod = (Integer.parseInt(texto.getText()));
-	    	String senha = texto2.getText();
 	    		    	
 	 	
-	    	Usuario retorno = dao.encontraUsuario(cod, senha);
+	    	Usuario retorno = dao.encontraUsuario(cod);
 	    	    	
 	    	
 	        label.setText(retorno.getNome());
 	    	 }
 	    	} catch(Exception ex) {
 	    		
-	    		label.setText("Nao cadastrado");
+	    		label.setText("Nao cadastrado.");
 	  	    	
 	    	 }
 	    	 if (src == botao2){

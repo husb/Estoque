@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EstoqueDAO {
 
-	private static final String selectUsuario = "select * from usuario where cod = ? and senha = ?";
+	private static final String selectUsuario = "select * from usuario where cod = ?";
 	private static final String insertProduto = "insert into produtos (nome, quantidade) values (?, ?)";
 	private static final String FindUsuarios = "select * from usuario";
 	
@@ -26,17 +26,13 @@ public class EstoqueDAO {
 		}
 	}
 	
-	public Usuario encontraUsuario(int cod, String senha) {
+	public Usuario encontraUsuario(int cod) {
 
 		if (cod == 0) {
 			throw new IllegalArgumentException(
 					"O número não pode ser null.");
 		}
-		if (senha == null) {
-			throw new IllegalArgumentException(
-					"A senha não pode ser null.");
-		}
-
+		
 		Usuario c = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -44,7 +40,6 @@ public class EstoqueDAO {
 		try {		
 			stmt = con.prepareStatement(selectUsuario);
 			stmt.setInt(1, cod);
-			stmt.setString(2, senha);
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
