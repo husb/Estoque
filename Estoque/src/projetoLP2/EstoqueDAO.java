@@ -1,43 +1,61 @@
 package projetoLP2;
 
-import java.sql.*;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+/**
+ * 
+ * @author husbeh@gmail.com
+ * 
+ */
 public class EstoqueDAO {
 
 	private static final String selectUsuario = "select * from usuario where cod = ?";
 	private static final String insertProduto = "insert into produtos (nome, quantidade) values (?, ?)";
 	private static final String FindUsuarios = "select * from usuario";
-	
 
-	Connection con = null;
+	private Connection con = null;
 
 	public void conectar() {
 
 		try {
-			Class.forName("org.postgresql.Driver");
-			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Estoque", "postgres", "senacrs");
-		} catch (SQLException e) {
+			Properties p = new Properties();
+			p.load(new FileInputStream("estoque.properties"));
+			String url = p.getProperty("url");
+
+			con = DriverManager.getConnection(url, p);
+		} catch (Exception e) {
 			System.out.println("Erro ao estabelecer conexão.");
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("Não encontrada. " + e);
 		}
+
 	}
-	
+
+	/**
+	 * Encontra o usuário dado o código. Retorna null se o código não for
+	 * encontrado.
+	 * 
+	 * @param cod
+	 *            é o código do usuário
+	 * @return é null caso não encontrado.
+	 * 
+	 */
 	public Usuario encontraUsuario(int cod) {
 
-		if (cod == 0) {
-			throw new IllegalArgumentException(
-					"O número não pode ser null.");
-		}
-		
+		// System.out.println("cod = " + cod);
+
 		Usuario c = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		try {		
+		try {
 			stmt = con.prepareStatement(selectUsuario);
 			stmt.setInt(1, cod);
 			rs = stmt.executeQuery();
@@ -45,29 +63,42 @@ public class EstoqueDAO {
 			if (rs.next()) {
 				int codi = rs.getInt("cod");
 				String nome = rs.getString("nome");
-				String pass = rs.getString("senha");
+				// System.out.println("NOME: " + nome);
+				// String pass = rs.getString("senha");
+				String pass = null;
 				c = new Usuario(codi, nome, pass);
 			}
 
 		} catch (Exception e) {
 
 			System.out.println("Informações não encontradas.");
-
+			e.printStackTrace();
 		} finally {
-
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		return c;
 	}
-
 
 	public boolean insertProduto(String nome, float quantidade) {
 
 		boolean result = false;
 
 		if (nome == null) {
-			throw new IllegalArgumentException(
-					"O número não pode ser null.");
+			throw new IllegalArgumentException("O número não pode ser null.");
 		}
 		PreparedStatement stmt = null;
 		try {
@@ -75,39 +106,42 @@ public class EstoqueDAO {
 			stmt.setString(1, nome);
 			stmt.setFloat(2, quantidade);
 
-			if(stmt.executeUpdate() == 1)
+			if (stmt.executeUpdate() == 1)
 				result = true;
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {			
-
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		return result;
 	}
-	
-	public Usuario Usuario() throws SQLException{
+
+	public List<Usuario> getUsuarios() throws SQLException {
 		Usuario c = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-			stmt = con.prepareStatement(FindUsuarios);
-			rs = stmt.executeQuery();
-			
-			List<Usuario> lista = new ArrayList<Usuario>();
-			
-			while (rs.next()) {
-				int codi = rs.getInt("cod");
-				String nome = rs.getString("nome");
-				String pass = rs.getString("senha");
-				c = new Usuario(codi, nome, pass);			
-				lista.add(c);
-			}
-			int count = 1;
-			for (Usuario a : lista) {
-				System.out.printf("Lista Numero" + count + " >" + "\n  Cod: " + a.getCod() + "\n  Nome: " + a.getNome() + "\n  Senha: " + a.getSenha() + "\n");
-				count = count +1;
-			}			
-			return c;			
-  }
+		stmt = con.prepareStatement(FindUsuarios);
+		rs = stmt.executeQuery();
+
+		List<Usuario> lista = new ArrayList<Usuario>();
+
+		while (rs.next()) {
+			int codi = rs.getInt("cod");
+			String nome = rs.getString("nome");
+			// String pass = rs.getString("senha");
+			String pass = null;
+			c = new Usuario(codi, nome, pass);
+			lista.add(c);
+		}
+		// System.out.println(lista);
+		return lista;
+	}
 }
