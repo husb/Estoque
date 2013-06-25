@@ -1,8 +1,8 @@
 /*  Tabela produtos com cod automatico, nome até 40 caracteres, e quantidade decimal(ex.: '10.00' */
 CREATE TABLE PRODUTOS(
 COD SERIAL PRIMARY KEY,
-NOME VARCHAR(40),
-QUANTIDADE INTEGER
+NOME VARCHAR(40) NOT NULL,
+QUANTIDADE INTEGER NOT NULL
 );
 
 /* Tabela relatorios, com cod automatico, cod_produto fazendo referencia à tabela produtos, data transação usando DATE (ex.: '2013-05-14')   */
@@ -15,16 +15,16 @@ QUANTIDADE INTEGER
 
 
 /* Tabela usuario, com cod automatico, nome(usuario do login) com até 15 caracteres e senha com até 15 caracteres livres  */
-CREATE TABLE USUARIO(
+CREATE TABLE USUARIOS(
 COD SERIAL PRIMARY KEY,
-NOME VARCHAR(15),
-SENHA VARCHAR(15)
+NOME VARCHAR(15) NOT NULL,
+SENHA VARCHAR(15) NOT NULL
 );
 
 /* inserts dos dados para teste  */
-INSERT INTO USUARIO(NOME, SENHA) VALUES
+INSERT INTO USUARIOS(NOME, SENHA) VALUES
 ('bernardo', 'teste123');
-INSERT INTO USUARIO(NOME, SENHA) VALUES
+INSERT INTO USUARIOS(NOME, SENHA) VALUES
 ('Marco Mangan', 'senacrs');
 
 
@@ -57,9 +57,9 @@ CREATE TRIGGER tf1 AFTER INSERT OR UPDATE OR DELETE ON PRODUTOS FOR EACH ROW EXE
 
 SELECT * FROM PRODUTOS;
 SELECT * FROM RELATORIOS;
-SELECT * FROM USUARIO;
+SELECT * FROM USUARIOs;
 
 
 /*  Testando se o usuário existe. */
 
-SELECT * FROM USUARIO WHERE NOME='bernardo' AND SENHA='teste123';
+SELECT * FROM USUARIOS WHERE NOME='bernardo' AND SENHA='teste123';
