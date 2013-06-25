@@ -4,9 +4,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
-@SuppressWarnings("serial")
 public class MenuSair extends AbstractAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5802036578286609238L;
 	private JFrame frame;
 	public MenuSair(JFrame frame) {
 		super("Sair da Aplicação");

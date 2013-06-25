@@ -10,8 +10,11 @@ import javax.swing.JPanel;
 import swing.estoque.Container;
 
 
-@SuppressWarnings("serial")
 public class JVoltar extends AbstractAction {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 137426618842189635L;
 	private JPanel principal;
 	private CardLayout cards;
 
@@ -23,9 +26,10 @@ public class JVoltar extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (principal != null) {
+	
+			 System.out.println("testevoltar");
 			cards.show(principal, Container.PRINCIPAL);
-		}
+	
 
 	}
 }
